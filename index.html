@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BSE L03 — Psychrometrics · 濕度學與空氣處理過程</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>💧 BSE L03 — Psychrometrics & Moist Air Processes</h1>
+    <p>濕度學、濕空氣熱力學與空調處理過程 · Lecture 3 · Building Services Engineering</p>
+    <p>25 條選擇題 + 5 條計算簡答題 · 12 幅 SCADA 動態工程原理圖 · Bilingual 中英對照</p>
+  </header>
+
+  <div class="stats-bar">
+    <div class="stat-item">
+      <div class="stat-value" id="timer">90:00</div>
+      <div class="stat-label">Time Left / 剩餘時間</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value" id="answeredCount">0/25</div>
+      <div class="stat-label">Answered / 已答題數</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value" id="scoreDisplay">-</div>
+      <div class="stat-label">Score / 測驗得分</div>
+    </div>
+    <div style="width:100%;">
+      <div class="progress-container"><div class="progress-fill" id="progressBar"></div></div>
+    </div>
+  </div>
+
+  <div class="result-panel" id="resultPanel">
+    <div class="score-circle" id="scoreCircle"><div class="score-text" id="finalScore">0%</div></div>
+    <div class="result-msg" id="resultMsg">Done!</div>
+    <div class="review-section" id="reviewSection"></div>
+    <div style="margin-top:20px;">
+      <button class="btn btn-secondary" onclick="location.reload()">Restart / 重新開始</button>
+    </div>
+  </div>
+
+  <nav class="tab-nav" id="tabNav">
+    <button class="tab-btn active" onclick="showSection('notes')">📚 Notes 筆記 (含 SCADA 原理圖)</button>
+    <button class="tab-btn" onclick="showSection('part1')">📋 MC (25)</button>
+    <button class="tab-btn" onclick="showSection('part2')">✏️ Short Q (5)</button>
+  </nav>
+
+  <!-- NOTES TAB -->
+  <section id="notesSection" class="section active">
+    <div class="intro-card">
+      <h3>👋 歡迎來到第三講！ / Welcome to Lecture 3!</h3>
+      <p>本講主題為 <strong>濕度學 (Psychrometrics)</strong>，係屋宇設備與暖通空調 (HVAC) 最關鍵嘅熱力學基礎。內容深入解析<strong>乾空氣與水蒸氣混合物理論、道爾頓分壓定律、濕度比推導、乾球/濕球/露點溫度、焓值基準公式、濕度圖 (Psychrometric Chart) 結構</strong>，以及五大核心空調過程：<strong>冷卻除濕、加熱加濕、再熱除濕、絕熱蒸發冷卻及空氣混合過程</strong>。每一節均配備工業級動態圖解！</p>
+    </div>
+
+    <div class="toc">
+      <h3>📑 Table of Contents / 課題目錄</h3>
+      <ol>
+        <li><a href="#t1">Moist Air Composition & Ideal Gas Law / 濕空氣成分與理想氣體狀態方程</a></li>
+        <li><a href="#t2">Dalton's Law of Partial Pressures / 道爾頓分壓定律與質量守恆定律</a></li>
+        <li><a href="#t3">Humidity Ratio Formulation / 濕度比（含濕量）數學推導</a></li>
+        <li><a href="#t4">Dry-Bulb, Wet-Bulb & Dew-Point Temperatures / 乾球溫度、濕球溫度與露點溫度</a></li>
+        <li><a href="#t5">Relative Humidity vs Degree of Saturation / 相對濕度與飽和度的對比</a></li>
+        <li><a href="#t6">Specific Enthalpy of Moist Air & Reference Datums / 濕空氣比焓公式與熱力學零點基準</a></li>
+        <li><a href="#t7">The Psychrometric Chart Coordinate System / 濕度圖結構與座標軸體系</a></li>
+        <li><a href="#t8">Sensible Heat Ratio (SHR) & Apparatus Dew Point (ADP) / 顯熱比與冷盤管機器露點</a></li>
+        <li><a href="#t9">Cooling Coil Bypass Factor (BF) & Contact Factor / 冷卻盤管旁通系數與接觸系數</a></li>
+        <li><a href="#t10">Cooling & Dehumidification Process / 冷卻除濕物理過程</a></li>
+        <li><a href="#t11">Heating, Humidification & Reheat Cycles / 加熱加濕、噴淋室效率與再熱循環</a></li>
+        <li><a href="#t12">Evaporative Cooling & Adiabatic Air Mixing / 絕熱蒸發冷卻與空氣混合槓桿定律</a></li>
+      </ol>
+    </div>
+
+    <div id="notesContainer"></div>
+  </section>
+
+  <!-- MC TAB -->
+  <section id="part1Section" class="section">
+    <div class="intro-card">
+      <h3>📋 Multiple Choice Questions (25 題選擇題)</h3>
+      <p>題目嚴格覆蓋 Lecture 3 濕度學常數、公式推導、查圖例題與工程應用。點選答案後點擊 <strong>Submit MC</strong> 查看成績及詳細中英題解。</p>
+    </div>
+    <div id="mcContainer"></div>
+    <div class="action-btns">
+      <button class="btn btn-success" onclick="submitMC()">Submit MC / 提交並查看成績與解釋</button>
+    </div>
+  </section>
+
+  <!-- SHORT Q TAB -->
+  <section id="part2Section" class="section">
+    <div class="intro-card">
+      <h3>✏️ Short Answer Questions (5 題計算與工程分析簡答題)</h3>
+      <p>包含公式推導、比焓分項計算、旁通系數驗算、空氣混合質量平衡與除濕再熱循環對比。建議先在草稿紙上計算，再點擊按鈕查看 Model Answer 與評分要點。</p>
+    </div>
+    <div id="shortContainer"></div>
+    <div class="action-btns">
+      <button class="btn btn-primary" onclick="showAnswers()">Show All Answers / 顯示所有參考答案</button>
+    </div>
+  </section>
+</div>
+
+<button class="to-top" id="toTop" onclick="window.scrollTo({top:0, behavior:'auto'})" title="Back to top">↑</button>
+
+<script src="app.js"></script>
+</body>
+</html>
